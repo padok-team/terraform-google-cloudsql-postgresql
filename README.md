@@ -5,8 +5,9 @@ You can set server specifications, high availability, private or public network,
 
 ## User Stories for this module
 
-- AATYPE I can be highly available or single zone
-- ...
+- AASRE I can get a highly available PostgreSQL database
+- AASRE I can set my DB computation power
+- AASRE I can expose or hide my DB
 
 ## Usage
 
