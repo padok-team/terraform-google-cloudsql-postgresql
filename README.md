@@ -11,16 +11,41 @@ You can set server specifications, high availability, private or public network,
 ## Usage
 
 ```hcl
-module "example" {
-  source = "https://github.com/padok-team/terraform-aws-example"
+module "my-postgresql-db" {
+  source = "../.."
 
-  example_of_required_variable = "hello_world"
+  name = "my-postgresql-db" #mandatory
+  #random_instance_name  = true
+  engine_version = "POSTGRES_11" #mandatory
+  project_id     = local.project_id #mandatory
+  region         = "europe-west1"
+  zone           = "europe-west1-b" #mandatory
+
+  nb_cpu = 2
+  ram    = 4096
+
+  disk_size = 10
+
+  nb_replicas = 3
+
+  list_user = ["front", "api"]
+
+  list_db = [
+    {
+      name : "MY_PROJECT_DB"
+      charset : "utf8"
+      collation : "utf8_general_ci"
+    }
+  ]
+  vpc_network = "default-europe-west1"
+
+  private_network = module.my_network.id
 }
 ```
 
 ## Examples
 
-- [Example of use case](examples/example_of_use_case/main.tf)
+- [Private PostgreSQL DB](examples/private_postgresql_db/main.tf)
 - [Example of other use case](examples/example_of_other_use_case/main.tf)
 
 <!-- BEGIN_TF_DOCS -->
