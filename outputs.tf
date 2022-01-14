@@ -1,16 +1,16 @@
 output "instance_name" {
-  value       = module.postgresql-db.instance_name
   description = "The instance name for the master instance."
+  value       = module.postgresql-db.instance_name
 }
 
 output "instance_connection_name" {
-  value       = module.postgresql-db.instance_connection_name
   description = "The connection name of the master instance to be used in connection strings."
+  value       = module.postgresql-db.instance_connection_name
 }
 
 output "read_replica_instance_names" {
-  value       = module.postgresql-db.read_replica_instance_names
   description = "The instance names for the read replica instances."
+  value       = module.postgresql-db.read_replica_instance_names
 }
 
 output "public_ip_address" {
