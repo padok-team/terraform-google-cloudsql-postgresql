@@ -17,8 +17,8 @@ provider "google-beta" {
 module "my-public-postgresql-db" {
   source = "../.."
 
-  name = "my-public-db1" #mandatory
-  engine_version = "POSTGRES_11"      #mandatory
+  name           = "my-public-db1"  #mandatory
+  engine_version = "POSTGRES_11"    #mandatory
   project_id     = local.project_id #mandatory
   region         = "europe-west1"
   zone           = "europe-west1-b" #mandatory
@@ -46,5 +46,4 @@ module "my-public-postgresql-db" {
   private_network = null
 
   #require_ssl = false   // By default, you must have a valid certificate to get connected to the DB as SSL is enabled. If you do not want, uncomment this line.
-
 }

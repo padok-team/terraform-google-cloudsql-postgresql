@@ -5,19 +5,19 @@ You can set server specifications, high availability, private or public network,
 
 ## User Stories for this module
 
-- AASRE I can get a highly available PostgreSQL database
-- AASRE I can set my DB computation power
-- AASRE I can expose or hide my DB
+- AAUser I can deploy a public PostgreSQL Database
+- AAUser I can deploy a private PostgreSQL Database within a VPC
+- AAUser I can deploy a public/private PostgreSQL Database with N replica
+- AAUser I can deploy a public/private PostgreSQL Database with/without TLS encryption
 
 ## Usage
 
 ```hcl
-module "my-postgresql-db" {
-  source = "../.."
+module "my-public-postgresql-db" {
+  source = "https://github.com/padok-team/terraform-google-cloudsql-postgresql"
 
-  name = "my-postgresql-db" #mandatory
-  #random_instance_name  = true
-  engine_version = "POSTGRES_11" #mandatory
+  name = "my-public-db1" #mandatory
+  engine_version = "POSTGRES_11"      #mandatory
   project_id     = local.project_id #mandatory
   region         = "europe-west1"
   zone           = "europe-west1-b" #mandatory
@@ -27,45 +27,50 @@ module "my-postgresql-db" {
 
   disk_size = 10
 
-  nb_replicas = 3
+  nb_replicas = 0
 
-  list_user = ["front", "api"]
+  list_user = ["Kylian", "Antoine"]
 
   list_db = [
     {
-      name : "MY_PROJECT_DB"
+      name : "MYDB_1"
       charset : "utf8"
-      collation : "utf8_general_ci"
+      collation : "en_US.UTF8"
     }
   ]
   vpc_network = "default-europe-west1"
 
-  private_network = module.my_network.id
+  assign_public_ip = true
+
+  private_network = null
+
+  #require_ssl = false   // By default, you must have a valid certificate to get connected to the DB as SSL is enabled. If you do not want, uncomment this line.
+
 }
 ```
 
 ## Examples
 
-- [Private PostgreSQL DB](examples/private_postgresql_db/main.tf)
-- [Example of other use case](examples/example_of_other_use_case/main.tf)
+- [Example for deploying a new private PostgreSQL DB](examples/private_postgresql_db/main.tf)
+- [Example for deploying a new public PostgreSQL DB](examples/public_postgresql_db/main.tf)
 
 <!-- BEGIN_TF_DOCS -->
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_postresql-db"></a> [postresql-db](#module\_postresql-db) | GoogleCloudPlatform/sql-db/google//modules/postgresql | 8.0.0 |
+| <a name="module_postgresql-db"></a> [postgresql-db](#module\_postgresql-db) | GoogleCloudPlatform/sql-db/google//modules/postgresql | 8.0.0 |
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_disk_size"></a> [disk\_size](#input\_disk\_size) | Size of the db disk (in Gb). | `number` | n/a | yes |
-| <a name="input_list_db"></a> [list\_db](#input\_list\_db) | List of the default DBs you want to create | <pre>list(object({<br>    name = string<br>    charset = string<br>    collation = string<br>  }))</pre> | n/a | yes |
+| <a name="input_list_db"></a> [list\_db](#input\_list\_db) | List of the default DBs you want to create | <pre>list(object({<br>    name      = string<br>    charset   = string<br>    collation = string<br>  }))</pre> | n/a | yes |
 | <a name="input_list_user"></a> [list\_user](#input\_list\_user) | List of the User's name you want to create (passwords will be auto-generated). | `list(string)` | n/a | yes |
 | <a name="input_name"></a> [name](#input\_name) | The name of the Cloud SQL resource. | `string` | n/a | yes |
 | <a name="input_nb_cpu"></a> [nb\_cpu](#input\_nb\_cpu) | Number of virtual processors | `number` | n/a | yes |
-| <a name="input_private_network"></a> [private\_network](#input\_private\_network) | n/a | `string` | n/a | yes |
+| <a name="input_private_network"></a> [private\_network](#input\_private\_network) | Define the CIDR of your private network. | `string` | n/a | yes |
 | <a name="input_project_id"></a> [project\_id](#input\_project\_id) | The project ID to manage the Cloud SQL resource. | `string` | n/a | yes |
 | <a name="input_ram"></a> [ram](#input\_ram) | Quantity of RAM (in Mb) | `number` | n/a | yes |
 | <a name="input_region"></a> [region](#input\_region) | The region for the master instance, it should be something like: us-central1-a, us-east1-c, etc. | `string` | n/a | yes |
@@ -73,7 +78,7 @@ module "my-postgresql-db" {
 | <a name="input_zone"></a> [zone](#input\_zone) | The zone for the master instance, it should be something like: us-central1-a, us-east1-c, etc. | `string` | n/a | yes |
 | <a name="input_assign_public_ip"></a> [assign\_public\_ip](#input\_assign\_public\_ip) | Set to true if the master instance should also have a public IP (less secure). | `bool` | `false` | no |
 | <a name="input_db_charset"></a> [db\_charset](#input\_db\_charset) | Charset for the DB. | `string` | `"utf8"` | no |
-| <a name="input_db_collation"></a> [db\_collation](#input\_db\_collation) | Collation for the DB. | `string` | `"utf8_general_ci"` | no |
+| <a name="input_db_collation"></a> [db\_collation](#input\_db\_collation) | Collation for the DB. | `string` | `"en_US.UTF8"` | no |
 | <a name="input_engine_version"></a> [engine\_version](#input\_engine\_version) | n/a | `string` | `"POSTGRES_11"` | no |
 | <a name="input_ha_external_ip_range"></a> [ha\_external\_ip\_range](#input\_ha\_external\_ip\_range) | The ip range to allow connecting from/to Cloud SQL. | `string` | `"192.10.10.10/32"` | no |
 | <a name="input_high_availability"></a> [high\_availability](#input\_high\_availability) | Activate or not high availability for your DB. | `bool` | `true` | no |
