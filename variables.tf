@@ -59,13 +59,13 @@ variable "nb_replicas" {
 variable "db_collation" {
   type        = string
   description = "Collation for the DB."
-  default     = "utf8_general_ci"
+  default     = "en_US.UTF8" # PostgreSQL Collation support: https://www.postgresql.org/docs/9.6/collation.html
 }
 
 variable "db_charset" {
   type        = string
   description = "Charset for the DB."
-  default     = "utf8"
+  default     = "utf8" # PostgreSQL Charset support: https://www.postgresql.org/docs/9.6/multibyte.html
 }
 
 variable "ha_external_ip_range" {
@@ -73,29 +73,6 @@ variable "ha_external_ip_range" {
   description = "The ip range to allow connecting from/to Cloud SQL."
   default     = "192.10.10.10/32"
 }
-# variable "replicas" {
-#   type        = list(object({
-#     name            = string
-#     tier            = string
-#     zone            = string
-#     disk_type       = string
-#     disk_autoresize = bool
-#     disk_size       = string
-#     user_labels     = map(string)
-#     database_flags  = list(object({
-#       name  = string
-#       value = string
-#     }))
-#     ip_configuration      = object({
-#       authorized_networks = list(map(string))
-#       ipv4_enabled        = bool
-#       private_network     = string
-#       require_ssl         = bool
-#     })
-#     encryption_key_name = string
-#   }))
-#   description = ""
-# }
 
 variable "instance_deletion_protection" {
   type = bool
@@ -136,5 +113,6 @@ variable "require_ssl" {
 }
 
 variable "private_network" {
-  type = string 
+  type = string
+  description = "Define the CIDR of your private network."
 }
