@@ -20,13 +20,13 @@ variable "region" {
 
 variable "engine_version" {
   type        = string
-  description = ""
+  description = "The version of PostgreSQL engine."
   default     = "POSTGRES_11"
 }
 
 variable "nb_cpu" {
   type        = number
-  description = "Number of virtual processors"
+  description = "Number of virtual processors."
 
   validation {
     condition     = var.nb_cpu == 1 || (var.nb_cpu >= 2 && var.nb_cpu <= 96 && var.nb_cpu % 2 == 0) # https://cloud.google.com/sql/docs/postgres/create-instance#machine-types
@@ -36,7 +36,7 @@ variable "nb_cpu" {
 
 variable "ram" {
   type        = number
-  description = "Quantity of RAM (in Mb)"
+  description = "Quantity of RAM (in Mb)."
 }
 
 variable "disk_size" {
@@ -86,7 +86,7 @@ variable "list_db" {
     charset   = string
     collation = string
   }))
-  description = "List of the default DBs you want to create"
+  description = "List of the default DBs you want to create."
 }
 
 variable "list_user" {
