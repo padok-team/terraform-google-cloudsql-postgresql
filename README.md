@@ -10,6 +10,8 @@ You can set server specifications, high availability, private or public network,
 - AAUser I can deploy a public/private PostgreSQL Database with N replica
 - AAUser I can deploy a public/private PostgreSQL Database with/without TLS encryption
 
+<em>By default, deployed Database is in HA mode, with a 7 retention days backup strategy.</em>
+
 ## Usage
 
 ```hcl
