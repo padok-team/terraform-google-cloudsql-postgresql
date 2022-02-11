@@ -1,4 +1,4 @@
-# Example of code for deploying a public PostgreSQL DB with 0 replica
+# Example of code for deploying a public PostgreSQL DB with 0 replicas
 # We also create two users : Kylian & Antoine (with strong passwords auto-generated)
 locals {
   project_id = "padok-cloud-factory"

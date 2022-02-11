@@ -7,7 +7,7 @@ You can set server specifications, high availability, private or public network,
 
 - AAUser I can deploy a public PostgreSQL Database
 - AAUser I can deploy a private PostgreSQL Database within a VPC
-- AAUser I can deploy a public/private PostgreSQL Database with N replica
+- AAUser I can deploy a public/private PostgreSQL Database with N replicas
 - AAUser I can deploy a public/private PostgreSQL Database with/without TLS encryption
 
 <em>By default, deployed Database is in HA mode, with a 7 retention days backup strategy.</em>
@@ -46,15 +46,14 @@ module "my-public-postgresql-db" {
 
   private_network = null
 
-  #require_ssl = false   // By default, you must have a valid certificate to get connected to the DB as SSL is enabled. If you do not want, uncomment this line.
-
+  #require_ssl = false   // By default, you need a valid certificate to connect to the DB as SSL is enabled. If you do not want this, uncomment this line.
 }
 ```
 
 ## Examples
 
-- [Example for deploying a new private PostgreSQL DB](examples/private_postgresql_db/main.tf)
-- [Example for deploying a new public PostgreSQL DB](examples/public_postgresql_db/main.tf)
+- [Example for deploying a private PostgreSQL DB](examples/private_postgresql_db/main.tf)
+- [Example for deploying a public PostgreSQL DB](examples/public_postgresql_db/main.tf)
 
 <!-- BEGIN_TF_DOCS -->
 ## Modules

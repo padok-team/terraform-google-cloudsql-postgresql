@@ -55,8 +55,8 @@ variable "backup_configuration" {
   default = {
     point_in_time_recovery_enabled = false
     enabled                        = false
-    start_time                     = "03:00" // Time when backcup configuration is starting
-    transaction_log_retention_days = "7"     //The number of days of transaction logs we retain for point in time restore, from 1-7.
+    start_time                     = "03:00" # Time when backcup configuration is starting
+    transaction_log_retention_days = "7"     # The number of days of transaction logs we retain for point in time restore, from 1-7.
     retained_backups               = 7
     retention_unit                 = "COUNT"
   }

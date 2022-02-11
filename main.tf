@@ -47,11 +47,11 @@ module "postgresql-db" {
   source  = "GoogleCloudPlatform/sql-db/google//modules/postgresql"
   version = "8.0.0"
 
-  name             = var.name           #mandatory
-  database_version = var.engine_version #mandatory
-  project_id       = var.project_id     #mandatory
+  name             = var.name           # Mandatory
+  database_version = var.engine_version # Mandatory
+  project_id       = var.project_id     # Mandatory
+  zone             = var.zone           # Mandatory
   region           = var.region
-  zone             = var.zone #mandatory
   tier             = "db-custom-${var.nb_cpu}-${var.ram}"
 
   db_charset   = var.db_charset
@@ -70,9 +70,9 @@ module "postgresql-db" {
     location                       = var.region
     point_in_time_recovery_enabled = var.high_availability
     enabled                        = var.high_availability
-    start_time                     = "03:00" // UTC Time when backup configuration is starting.
-    transaction_log_retention_days = "7"     // The number of days of transaction logs we retain for point in time restore, from 1-7.
-    retained_backups               = 7       // Number of days we keep backups.
+    start_time                     = "03:00" # UTC Time when backup configuration is starting.
+    transaction_log_retention_days = "7"     # The number of days of transaction logs we retain for point in time restore, from 1-7.
+    retained_backups               = 7       # Number of days we keep backups.
     retention_unit                 = "COUNT"
   }
 
