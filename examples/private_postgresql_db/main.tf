@@ -37,11 +37,11 @@ module "my_network" {
 module "my-private-postgresql-db" {
   source = "../.."
 
-  name           = "my-private-db1" #mandatory
-  engine_version = "POSTGRES_11"    #mandatory
-  project_id     = local.project_id #mandatory
+  name           = "my-private-db1" # Mandatory
+  engine_version = "POSTGRES_11"    # Mandatory
+  project_id     = local.project_id # Mandatory
+  zone           = "europe-west1-b" # Mandatory
   region         = "europe-west1"
-  zone           = "europe-west1-b" #mandatory
 
   nb_cpu = 2
   ram    = 4096
@@ -50,9 +50,9 @@ module "my-private-postgresql-db" {
 
   nb_replicas = 1
 
-  list_user = ["Kylian", "Antoine"]
+  additional_users = ["Kylian", "Antoine"]
 
-  list_db = [
+  additional_databases = [
     {
       name : "MYDB_1",
       charset : "utf8"

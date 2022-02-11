@@ -17,11 +17,11 @@ provider "google-beta" {
 module "my-public-postgresql-db" {
   source = "../.."
 
-  name           = "my-public-db1"  #mandatory
-  engine_version = "POSTGRES_11"    #mandatory
-  project_id     = local.project_id #mandatory
+  name           = "my-public-db1"  # Mandatory
+  engine_version = "POSTGRES_11"    # Mandatory
+  project_id     = local.project_id # Mandatory
+  zone           = "europe-west1-b" # Mandatory
   region         = "europe-west1"
-  zone           = "europe-west1-b" #mandatory
 
   nb_cpu = 2
   ram    = 4096
@@ -30,9 +30,9 @@ module "my-public-postgresql-db" {
 
   nb_replicas = 0
 
-  list_user = ["Kylian", "Antoine"]
+  additional_users = ["Kylian", "Antoine"]
 
-  list_db = [
+  additional_databases = [
     {
       name : "MYDB_1"
       charset : "utf8"
@@ -45,5 +45,5 @@ module "my-public-postgresql-db" {
 
   private_network = null
 
-  #require_ssl = false   // By default, you must have a valid certificate to get connected to the DB as SSL is enabled. If you do not want, uncomment this line.
+  #require_ssl = false   // By default, you need a valid certificate to connect to the DB as SSL is enabled. If you do not want this, uncomment this line.
 }
